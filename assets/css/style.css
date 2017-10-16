@@ -1,0 +1,15 @@
+/* Custom CSS for Pyschic Game */
+
+body {
+	padding-left: 10px;
+}
+
+h1 {
+	font-size: 36px;
+	font-weight: bolder;
+	margin: 30px 0;
+}
+
+p {
+	line-height: 30px;
+}

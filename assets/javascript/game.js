@@ -2,11 +2,12 @@
 
 // Global Variables
 
-let wins = 0;
-let losses = 0;
-let guessesLeft = 10;
+let correct = 0;
+let incorrect = 0;
+let guessesLeft = 13;
 let guessesSoFar = [];
 let pyschicChoice = "";
+let userGuess = "";
 
 // array of all the letters in the english alphabet
 let alphabet = [
@@ -30,7 +31,7 @@ let pyschic = () =>  {
 
 // Function to Reset Game to original settings
 let resetGame = () => {
-	guessesLeft = 10;
+	guessesLeft = 13;
 	guessesSoFar = [];
 	pyschic();
 };
@@ -38,17 +39,21 @@ let resetGame = () => {
 
 
 
+
+
 // Grab users keystroke to intput there guess at the letter and start the game
 document.onkeyup = (event) => {
 
-	let userGuess = event.key.toLowerCase();
+	userGuess = event.key.toLowerCase();
+
+	pyschic();
 
 	console.log(userGuess);
 
 
 	if (userGuess == pyschicChoice) {
-		wins++;
-		resetGame();
+		correct++;
+		alertWin();
 	} 
 	if (userGuess != pyschicChoice) {
 		guessesLeft--;
@@ -59,18 +64,33 @@ document.onkeyup = (event) => {
 
 	// Output to place on the webpage
 	let html = 
-		"<p>Guess what letter I'm thinking of...</p>" +
-		"<p>Wins: " + wins + "</p>" +
-		"<p>Losses: " + losses + "</p>" +
-		"<p>Guesses Left: " + guessesLeft + "</p>" +
-		"<p>Your Guesses so far: " + guessesSoFar + "</p>";
+		"<p>Guesses Left </p>" +
+		"<p>"+ guessesLeft + "</p>" +
+		"<p>Letters Guessed</p>" + 
+		"<p>"+ guessesSoFar + "</p>" +
+		"<br>" +
+		"<p>Correct </p>" + 
+		"<p>"+ correct + "</p>" +
+		"<p>Incorrect </p>" + 
+		"<p>"+ incorrect + "</p>";
 
 	// Set the inner HTML contents of the game_output id to our html string
     document.querySelector("#game_output").innerHTML = html;
 
     if ( guessesLeft === 0 ) {
-		losses++;
-		resetGame();
+		incorrect++;
+		alertLoss();
 		}
-	}	
-}
+	}
+
+};
+
+let alertWin = () => {
+	alert("Congratulations I was thinking of " + pyschicChoice + ".");
+	resetGame();
+};
+
+let alertLoss = () => {
+	alert("I am sorry you are incorrect, I was thinking of " + pyschicChoice + ". " + "You Guessed " + userGuess + ".");
+	resetGame();
+};
